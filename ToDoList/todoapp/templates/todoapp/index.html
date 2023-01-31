@@ -1,0 +1,77 @@
+{% extends 'todoapp/base.html' %}
+
+{% block content %}
+
+<div class="butt">
+    <div class="container">
+        <div class="d-grid gap-2 col-4 mx-auto">
+                        <!-- Button trigger modal -->
+            <button type="button" class="btn btn-success"data-bs-toggle="modal" data-bs-target="#staticBackdrop">Добавить запись</button>
+            <hr>
+
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Добавление задачи</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                        <form action="{% url 'add' %}" method="post">
+                            {% csrf_token %}
+                          <div class="modal-body">
+                              <div class="mb-3">
+                                  <label for="exampleFormControlTextarea1" class="form-label">Название задачи:</label>
+                                  <input class="form-control" type="text" name="title" placeholder="Введите название задачи" aria-label="default input example">
+                                  </div>
+                                  <div class="mb-3">
+                                  <label for="exampleFormControlTextarea1" class="form-label">Описание задачи:</label>
+                                  <textarea class="form-control" name="content" id="exampleFormControlTextarea1" rows="3"></textarea>
+                              </div>
+                          </div>
+                            <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">Добавить запись</button>
+                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Отмена</button>
+                            </div>
+                        </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+        {% for t in tasks %}
+
+        {% if t.is_done == False %}
+            <div class="container">
+                <div class="alert alert-danger" role="alert">
+                    <h5>№{{ t.id }} {{ t.title }} <span class="badge bg-danger">Предстоит выполнить</span></h5>
+                    <span>{{ t.content }}</span>
+                    <hr>
+                    <p>
+                        <a href="{% url 'complete' task_id=t.id %}"><button type="button" class="btn btn-outline-success">Отметить выполненным</button></a>
+                        Создано {{ t.time_create }}
+                    </p>
+
+                </div>
+            </div>
+        {% else %}
+            <div class="container">
+                <div class="alert alert-success" role="alert">
+                    <h5>№{{ t.id }} {{ t.title }} <span class="badge bg-success">Выполнено</span></h5>
+                    <p>{{ t.content }}</p>
+                    <hr>
+                    <p>
+                        <a href="{% url 'complete' task_id=t.id %}"><button type="button" class="btn btn-outline-danger">Отметить невыполненным</button></a>
+                        Создано {{ t.time_create }}
+                    </p>
+                </div>
+            </div>
+        {% endif %}
+        {% endfor %}
+
+</div>
+{% endblock %}
