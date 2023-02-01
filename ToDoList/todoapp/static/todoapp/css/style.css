@@ -1,10 +1,15 @@
 .container-fluid{
 margin: 0 0 100px 0;
-{
-
-body {
-    background-color: #1c87c9;
 }
+
+
+:root {
+  --bs-body-bg: #fff0000;
+}
+
+
+
+
 
 
 
