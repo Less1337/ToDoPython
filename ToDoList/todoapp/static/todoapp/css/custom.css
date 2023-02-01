@@ -1,0 +1,18 @@
+body {
+    background-image: url('../images/background.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.alert-danger {
+    --bs-alert-color: #000000;
+    --bs-alert-bg: #e5425145;
+    --bs-alert-border-color: #ff011a;
+}
+
+.alert-success {
+    --bs-alert-color: #000000;
+    --bs-alert-bg: #016e3d4f;
+    --bs-alert-border-color: #066e38;
+}
